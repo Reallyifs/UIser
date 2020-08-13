@@ -1,0 +1,9 @@
+﻿author = Really'if.s.
+version = 0.1.0.1
+hideCode = true
+homepage = https://github.com/Reallyifs/UIser
+includePDB = false
+buildIgnore = *.csproj, *.sln, obj/*, bin/*, *.suo, *.user, .git/*, .vs/*, .gitignore
+displayName = UIser（U I 人）
+hideResources = true
+includeSource = false
