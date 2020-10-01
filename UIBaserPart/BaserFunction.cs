@@ -46,7 +46,7 @@ namespace UIser
                 }
                 Activate();
                 Activated = true;
-                BaserAdd(this);
+                BaserAdd(this, 0);
                 DeBaser.ForEach(delegate (UIBaser baser) { baser.Activation(); });
             }
         }

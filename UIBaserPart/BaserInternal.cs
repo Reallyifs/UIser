@@ -12,10 +12,15 @@ namespace UIser
         internal const double MaxDoubleClickTime = 0.5;
         internal static List<UIBaser> AllBaser;
 
-        internal static void BaserAdd(UIBaser baser)
+        internal static void BaserAdd(UIBaser baser, int? index = null)
         {
             if (AllBaser == null)
                 AllBaser = new List<UIBaser>();
+            if (index.HasValue && index.Value >= 0)
+            {
+                AllBaser.Insert(index.Value, baser);
+                return;
+            }
             AllBaser.Add(baser);
         }
         internal static void BaserRemove(UIBaser baser)

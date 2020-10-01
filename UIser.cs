@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.GameInput;
 using Terraria.ModLoader;
 
 namespace UIser
@@ -27,17 +30,26 @@ namespace UIser
                             baser.MouseEnter();
                             baser.MouseEntered = true;
                         }
-                        if (baser.MouseEntered)
+                        if (baser.MouseEntered && !baser.Rectangle.Contains(Functionser.MousePoint))
                         {
-                            if (!baser.Rectangle.Contains(Functionser.MousePoint))
-                            {
-                                baser.MouseLeave();
-                                baser.MouseEntered = false;
-                                continue;
-                            }
+                            baser.MouseLeave();
+                            baser.MouseEntered = false;
                         }
                     }
                 }
+            }
+            if (Functionser.MouseClick)
+            {
+                UIBaser clickBaser = UIBaser.AllBaser.SkipWhile(
+                    (UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint)).ToArray()[0];
+                clickBaser.MouseClick(true);
+                Functionser.lastClickUI = clickBaser;
+                if (Functionser.lastClickUI == clickBaser)
+                {
+                    clickBaser.MouseDoubleClick(true);
+                    Functionser.lastClickUI = null;
+                }
+                Functionser.lastClickTime = gameTime;
             }
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch)

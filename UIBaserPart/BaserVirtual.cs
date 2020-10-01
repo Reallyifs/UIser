@@ -35,9 +35,13 @@ namespace UIser
         {
         }
 
+        /// <summary>
+        /// 在UI已 <see cref="Activate"/> 的前提下才会调用此方法，如果重写你需要写出所有的绘画逻辑
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color, Rotation, Vector2.Zero, Scale, SpriteEffect, 0f);
+            spriteBatch.Draw(this);
             if (Rectangle.Contains(Functionser.MousePoint) && !string.IsNullOrEmpty(Description))
             {
                 Vector2 position = new Vector2(Main.mouseX + 15, Main.mouseY + 15);
@@ -45,6 +49,10 @@ namespace UIser
             }
         }
 
+        /// <summary>
+        /// 在UI已 <see cref="Activate"/> 的前提下才会调用此方法，不管窗口有没有焦点
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
         }
@@ -56,12 +64,14 @@ namespace UIser
         public virtual void MouseEnter()
         {
         }
+
         /// <summary>
         /// 发生在鼠标离开此UI的时候
         /// </summary>
         public virtual void MouseLeave()
         {
         }
+
         /// <summary>
         /// 鼠标单击
         /// </summary>
@@ -69,6 +79,7 @@ namespace UIser
         public virtual void MouseClick(bool? MouseLeft)
         {
         }
+
         /// <summary>
         /// 鼠标双击，会先触发单击事件
         /// </summary>

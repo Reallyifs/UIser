@@ -32,7 +32,7 @@ namespace UIser.Label
         }
         public LabelUI(DynamicSpriteFont font) : base()
         {
-            Font = font;
+            Font = font ?? Main.fontMouseText;
             Text = string.Empty;
             TextPositionX = TextPositionY = 0;
         }
@@ -47,7 +47,7 @@ namespace UIser.Label
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position - Main.screenPosition, null, Color, Rotation, Vector2.Zero, Scale, SpriteEffect, 0f);
+            spriteBatch.Draw(this);
             if (!string.IsNullOrEmpty(Text))
             {
                 Vector2 TextDrawPosition = Position + TextPosition - Main.screenPosition;
