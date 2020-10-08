@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Reflection;
 using Terraria;
-using Terraria.GameInput;
 using Terraria.ModLoader;
 
 namespace UIser
