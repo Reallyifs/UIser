@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Terraria;
 
@@ -10,15 +11,15 @@ namespace UIser
 {
     public static class Functionser
     {
-        public const string UIDefaultName = "UIser : DefaultName";
+        public static bool MouseLeftClick => Main.mouseLeft && Main.mouseLeftRelease;
+        public static bool MouseRightClick => Main.mouseRight && Main.mouseRightRelease;
+        public static bool MouseMiddleClick => Main.mouseMiddle && Main.mouseMiddleRelease;
 
-        public static bool MouseClick => Main.mouseLeft && Main.mouseLeftRelease;
-
-        internal static UIBaser lastClickUI;
-        internal static GameTime lastClickTime;
         internal static Point MousePoint => new Point(Main.mouseX, Main.mouseY);
-        internal static UIser Instance { get; set; }
-        internal static Assembly Assembly { get; set; }
+
+        public static TimeSpan FromSeconds(this double number) => TimeSpan.FromSeconds(number);
+
+        public static bool MouseInAnyBaser() => UIBaser.AllBaser.Any((UIBaser baser) => baser.Rectangle.Contains(MousePoint));
 
         public static void ToFront<T>(this List<T> list, T item)
         {
@@ -26,7 +27,7 @@ namespace UIser
             {
                 T item2 = item;
                 list.Remove(item);
-                list.Insert(0, item2);
+                list.Add(item2, true);
             }
         }
 
@@ -34,11 +35,13 @@ namespace UIser
         {
             if (front)
                 list.Insert(0, item);
+            else
+                list.Add(item);
         }
 
         public static void Draw(this SpriteBatch spriteBatch, UIBaser baser)
         {
-            spriteBatch.Draw(baser.Texture, baser.Position - Main.screenPosition, null, baser.Color, baser.Rotation, Vector2.Zero, baser.Scale,
+            spriteBatch.Draw(baser.Texture, baser.ScreenPosition, null, baser.Color, baser.Rotation, Vector2.Zero, baser.Scale,
                 baser.SpriteEffect, 0f);
         }
 

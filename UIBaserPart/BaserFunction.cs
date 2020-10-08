@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace UIser
 {
@@ -8,15 +6,6 @@ namespace UIser
     {
         public UIBaser()
         {
-            X = Y = 0;
-            Name = Description = "";
-            Color = Color.White;
-            Scale = 0;
-            Width = Height = 0;
-            OnBaser = null;
-            DeBaser = new List<UIBaser>();
-            Rotation = 0;
-            SpriteEffect = SpriteEffects.None;
         }
 
         /// <summary>

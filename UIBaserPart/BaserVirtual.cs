@@ -12,7 +12,7 @@ namespace UIser
         /// <summary>
         /// 别问，问就是懒
         /// </summary>
-        public virtual Texture2D Texture => ModContent.GetTexture("Terraria/Text_Back");
+        public virtual Texture2D Texture => ModContent.GetTexture("Images/BaserTexture");
 
         /// <summary>
         /// 激活此UI时，在这里初始化你需要用到的变量，如果没有初始化，则会先调用 <see cref="Initialize"/>

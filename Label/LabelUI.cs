@@ -10,9 +10,15 @@ namespace UIser.Label
     /// </summary>
     public class LabelUI : UIBaser
     {
-        public int TextPositionX;
-        public int TextPositionY;
-        public string Text { get; protected set; }
+        public int TextPositionX = 0;
+        public int TextPositionY = 0;
+
+        public string Text
+        {
+            get;
+            protected set;
+        } = string.Empty;
+
         public Vector2 TextPosition
         {
             get => new Vector2(TextPositionX, TextPositionY);
@@ -22,19 +28,20 @@ namespace UIser.Label
                 TextPositionY = (int)value.Y;
             }
         }
-        public DynamicSpriteFont Font { get; protected set; }
+
+        public DynamicSpriteFont Font
+        {
+            get;
+            protected set;
+        } = Main.fontMouseText;
 
         public LabelUI() : base()
         {
-            Font = Main.fontMouseText;
-            Text = string.Empty;
-            TextPositionX = TextPositionY = 0;
         }
+
         public LabelUI(DynamicSpriteFont font) : base()
         {
             Font = font ?? Main.fontMouseText;
-            Text = string.Empty;
-            TextPositionX = TextPositionY = 0;
         }
 
         public virtual bool CanChangeText(string text) => !string.IsNullOrEmpty(text);
@@ -50,8 +57,10 @@ namespace UIser.Label
             spriteBatch.Draw(this);
             if (!string.IsNullOrEmpty(Text))
             {
-                Vector2 TextDrawPosition = Position + TextPosition - Main.screenPosition;
+                Vector2 TextDrawPosition = ScreenPosition + TextPosition;
                 spriteBatch.DrawFiveString(Font, Text, TextDrawPosition, Color.White, Color.Black, Vector2.Zero);
+                if (Width < Font.MeasureString(Text).X)
+                    Width = (int)Font.MeasureString(Text).X + 1;
             }
         }
     }

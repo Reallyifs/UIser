@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Linq;
+using System;
 using System.Reflection;
 using Terraria;
 using Terraria.GameInput;
@@ -11,13 +10,31 @@ namespace UIser
 {
     public class UIser : Mod
     {
+        internal static UIser Instance 
+        { 
+            get; 
+            set; 
+        }
+
+        internal static Assembly Assembly 
+        { 
+            get; 
+            set;
+        }
+
         public UIser()
         {
-            Functionser.Instance = this;
-            Functionser.Assembly = Assembly.GetExecutingAssembly();
+            Assembly = Assembly.GetExecutingAssembly();
+            Instance = this;
         }
+
         public override void UpdateUI(GameTime gameTime)
         {
+            if (UILoader.clickUINow != null)
+            {
+                UILoader.clickUIBefore = UILoader.clickUINow;
+                UILoader.clickUINow = null;
+            }
             foreach (UIBaser baser in UIBaser.AllBaser)
             {
                 if (baser.Activated)
@@ -38,20 +55,53 @@ namespace UIser
                     }
                 }
             }
-            if (Functionser.MouseClick)
+            if (Functionser.MouseInAnyBaser())
             {
-                UIBaser clickBaser = UIBaser.AllBaser.SkipWhile(
-                    (UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint)).ToArray()[0];
-                clickBaser.MouseClick(true);
-                Functionser.lastClickUI = clickBaser;
-                if (Functionser.lastClickUI == clickBaser)
+                if (Functionser.MouseLeftClick)
                 {
-                    clickBaser.MouseDoubleClick(true);
-                    Functionser.lastClickUI = null;
+                    UIBaser clickBaser = UIBaser.AllBaser.FindAll((UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint))[0];
+                    UIBaser.AllBaser.ToFront(clickBaser);
+                    clickBaser.MouseClick(true);
+                    UILoader.clickUINow = clickBaser;
+                    if (UILoader.clickUIBefore == clickBaser && DateTime.Now - UILoader.clickTime < UIBaser.MaxDoubleClickTime.FromSeconds())
+                    {
+                        clickBaser.MouseDoubleClick(true);
+                        UILoader.clickUIBefore = null;
+                        UILoader.clickUINow = null;
+                    }
+                    UILoader.clickTime = DateTime.Now;
                 }
-                Functionser.lastClickTime = gameTime;
+                if (Functionser.MouseMiddleClick)
+                {
+                    UIBaser clickBaser = UIBaser.AllBaser.FindAll((UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint))[0];
+                    UIBaser.AllBaser.ToFront(clickBaser);
+                    clickBaser.MouseClick(null);
+                    UILoader.clickUINow = clickBaser;
+                    if (UILoader.clickUIBefore == clickBaser && DateTime.Now - UILoader.clickTime < UIBaser.MaxDoubleClickTime.FromSeconds())
+                    {
+                        clickBaser.MouseDoubleClick(null);
+                        UILoader.clickUIBefore = null;
+                        UILoader.clickUINow = null;
+                    }
+                    UILoader.clickTime = DateTime.Now;
+                }
+                if (Functionser.MouseRightClick)
+                {
+                    UIBaser clickBaser = UIBaser.AllBaser.FindAll((UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint))[0];
+                    UIBaser.AllBaser.ToFront(clickBaser);
+                    clickBaser.MouseClick(false);
+                    UILoader.clickUINow = clickBaser;
+                    if (UILoader.clickUIBefore == clickBaser && DateTime.Now - UILoader.clickTime < UIBaser.MaxDoubleClickTime.FromSeconds())
+                    {
+                        clickBaser.MouseDoubleClick(false);
+                        UILoader.clickUIBefore = null;
+                        UILoader.clickUINow = null;
+                    }
+                    UILoader.clickTime = DateTime.Now;
+                }
             }
         }
+
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
             foreach (UIBaser baser in UIBaser.AllBaser)

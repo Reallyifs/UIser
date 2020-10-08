@@ -64,7 +64,7 @@ namespace UIser.TextBox
                 PlayerInput.BlockedKey = null;
                 if (Main.LocalPlayer.position != PlayerPosition)
                     Main.LocalPlayer.position = PlayerPosition;
-                if (Main.mouseLeft && Main.mouseLeftRelease)
+                if (!MouseEntered && Main.mouseLeft && Main.mouseLeftRelease)
                 {
                     InWrite = false;
                     PlayerPosition = new Vector2();

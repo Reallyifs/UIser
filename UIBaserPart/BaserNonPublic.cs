@@ -4,6 +4,8 @@ namespace UIser
 {
     public partial class UIBaser
     {
+        private bool Initialized = false;
+
         internal bool MouseEntered;
 
         internal UIBaser OnBaser;
@@ -16,13 +18,14 @@ namespace UIser
         {
             if (AllBaser == null)
                 AllBaser = new List<UIBaser>();
-            if (index.HasValue && index.Value >= 0)
+            if (index.HasValue && index >= 0 && index.Value < AllBaser.Count)
             {
                 AllBaser.Insert(index.Value, baser);
                 return;
             }
             AllBaser.Add(baser);
         }
+
         internal static void BaserRemove(UIBaser baser)
         {
             if (AllBaser == null || !AllBaser.Contains(baser))

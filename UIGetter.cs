@@ -6,24 +6,24 @@ namespace UIser
 {
     public static class UIGetter
     {
-        public static LabelUI NewLabelUI(DynamicSpriteFont font = null, string Name = Functionser.UIDefaultName, string Description = "",
-            string Text = null)
+        public static LabelUI NewLabelUI(string name = UIBaser.UIDefaultName, string description = "", DynamicSpriteFont font = null)
         {
-            return new LabelUI(font)
+            LabelUI label = new LabelUI(font)
             {
-                Name = Name,
-                Description = Description
+                Name = name,
+                Description = description
             };
+            return label;
         }
 
-        public static TextBoxUI NewTextBoxUI(DynamicSpriteFont Font = null, string Name = Functionser.UIDefaultName, string Description = "",
-            string Text = null)
+        public static TextBoxUI NewTextBoxUI(string name = UIBaser.UIDefaultName, string description = "", DynamicSpriteFont font = null)
         {
-            return new TextBoxUI(Font)
+            TextBoxUI label = new TextBoxUI(font)
             {
-                Name = Name,
-                Description = Description
+                Name = name,
+                Description = description
             };
+            return label;
         }
     }
 }
