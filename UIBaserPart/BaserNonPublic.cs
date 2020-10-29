@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Terraria;
 
 namespace UIser
 {
@@ -31,6 +34,18 @@ namespace UIser
             if (AllBaser == null || !AllBaser.Contains(baser))
                 return;
             AllBaser.Remove(baser);
+        }
+
+        internal void DrawDescription(SpriteBatch spriteBatch)
+        {
+            string drawString = Description;
+            if (UIser.DeveloperMode || TestUI)
+                drawString = Name + "\n" + Description;
+            if (MouseEntered && !string.IsNullOrEmpty(Description))
+            {
+                Vector2 position = new Vector2(Main.mouseX + 15, Main.mouseY + 15);
+                spriteBatch.DrawFiveString(Main.fontMouseText, drawString, position, Color.White, Color.Black, Vector2.Zero);
+            }
         }
     }
 }

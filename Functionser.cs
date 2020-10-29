@@ -11,10 +11,6 @@ namespace UIser
 {
     public static class Functionser
     {
-        public static bool MouseLeftClick => Main.mouseLeft && Main.mouseLeftRelease;
-        public static bool MouseRightClick => Main.mouseRight && Main.mouseRightRelease;
-        public static bool MouseMiddleClick => Main.mouseMiddle && Main.mouseMiddleRelease;
-
         internal static Point MousePoint => new Point(Main.mouseX, Main.mouseY);
 
         public static TimeSpan FromSeconds(this double number) => TimeSpan.FromSeconds(number);
@@ -37,6 +33,14 @@ namespace UIser
                 list.Insert(0, item);
             else
                 list.Add(item);
+        }
+
+        public static void Draw(this SpriteBatch spriteBatch, UIBaser baser, Texture2D otherTexture)
+        {
+            if (otherTexture == null)
+                otherTexture = baser.Texture;
+            spriteBatch.Draw(otherTexture, baser.ScreenPosition, null, baser.Color, baser.Rotation, Vector2.Zero, baser.Scale,
+                baser.SpriteEffect, 0f);
         }
 
         public static void Draw(this SpriteBatch spriteBatch, UIBaser baser)

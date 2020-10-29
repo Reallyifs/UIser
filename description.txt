@@ -2,9 +2,26 @@
 UserInterfaces' er
 U I 人（
 
-v0.1.0.0
+v0.1.0.1
 ——————————
 
 目前已实现：
 Label
-Text Box
+——————————
+
+如何使用本Mod
+如果你是一个普通的Mod玩家，直接加载Mod即可
+
+如果你是个Mod制作者并使用了此Mod
+1.使用dllReferences（推荐）
+在 build.txt 中空的一行敲上 dllReferences = UIser
+将版本匹配的 UIser.dll（目前为0.1.0.1）放进Mod主文件夹的 lib\
+在VS中打上引用（依赖项->程序集（右键）->添加引用->选择 lib\ 中的 UIser.dll）
+虽然较为麻烦，但绝对不会出现兼容问题
+
+2.使用modReferences
+在 build.txt 中空的一行敲上 modReferences = UIser
+此选项需要玩家将版本对应的 UIser.tmod 加载至Mod列表
+可能会出现兼容问题，到时候请自己解决
+
+你可以在 Files\HistoricVersion 中查看每个版本的 UIser 改了什么

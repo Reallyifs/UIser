@@ -9,6 +9,14 @@ namespace UIser
 {
     public class UIser : Mod
     {
+        public const string Instructions = "请转到本 Mod 的 descripton.txt 或 更多信息 查看。";
+
+        internal static bool DeveloperMode
+        {
+            get;
+            private set;
+        }
+
         internal static UIser Instance 
         { 
             get; 
@@ -25,6 +33,7 @@ namespace UIser
         {
             Assembly = Assembly.GetExecutingAssembly();
             Instance = this;
+            DeveloperMode = true;
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -41,6 +50,7 @@ namespace UIser
                     baser.Update(gameTime);
                     if (Main.hasFocus)
                     {
+                        baser.FocusUpdate(gameTime);
                         if (!baser.MouseEntered && baser.Rectangle.Contains(Functionser.MousePoint))
                         {
                             baser.MouseEnter();
@@ -52,47 +62,27 @@ namespace UIser
                             baser.MouseEntered = false;
                         }
                     }
+                    else
+                        baser.NonFocusUpdate(gameTime);
                 }
             }
             if (Functionser.MouseInAnyBaser())
             {
-                if (Functionser.MouseLeftClick)
+                if (UILoader.Mouse.Left.Click)
+                    UpdateUIAction(true);
+                if (UILoader.Mouse.Middle.Click)
+                    UpdateUIAction(null);
+                if (UILoader.Mouse.Right.Click)
+                    UpdateUIAction(false);
+                void UpdateUIAction(bool? MouseLeft)
                 {
                     UIBaser clickBaser = UIBaser.AllBaser.FindAll((UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint))[0];
                     UIBaser.AllBaser.ToFront(clickBaser);
-                    clickBaser.MouseClick(true);
+                    clickBaser.MouseClick(MouseLeft);
                     UILoader.clickUINow = clickBaser;
                     if (UILoader.clickUIBefore == clickBaser && DateTime.Now - UILoader.clickTime < UIBaser.MaxDoubleClickTime.FromSeconds())
                     {
-                        clickBaser.MouseDoubleClick(true);
-                        UILoader.clickUIBefore = null;
-                        UILoader.clickUINow = null;
-                    }
-                    UILoader.clickTime = DateTime.Now;
-                }
-                if (Functionser.MouseMiddleClick)
-                {
-                    UIBaser clickBaser = UIBaser.AllBaser.FindAll((UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint))[0];
-                    UIBaser.AllBaser.ToFront(clickBaser);
-                    clickBaser.MouseClick(null);
-                    UILoader.clickUINow = clickBaser;
-                    if (UILoader.clickUIBefore == clickBaser && DateTime.Now - UILoader.clickTime < UIBaser.MaxDoubleClickTime.FromSeconds())
-                    {
-                        clickBaser.MouseDoubleClick(null);
-                        UILoader.clickUIBefore = null;
-                        UILoader.clickUINow = null;
-                    }
-                    UILoader.clickTime = DateTime.Now;
-                }
-                if (Functionser.MouseRightClick)
-                {
-                    UIBaser clickBaser = UIBaser.AllBaser.FindAll((UIBaser baser) => baser.Rectangle.Contains(Functionser.MousePoint))[0];
-                    UIBaser.AllBaser.ToFront(clickBaser);
-                    clickBaser.MouseClick(false);
-                    UILoader.clickUINow = clickBaser;
-                    if (UILoader.clickUIBefore == clickBaser && DateTime.Now - UILoader.clickTime < UIBaser.MaxDoubleClickTime.FromSeconds())
-                    {
-                        clickBaser.MouseDoubleClick(false);
+                        clickBaser.MouseDoubleClick(MouseLeft);
                         UILoader.clickUIBefore = null;
                         UILoader.clickUINow = null;
                     }

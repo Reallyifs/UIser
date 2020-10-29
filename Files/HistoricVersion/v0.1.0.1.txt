@@ -1,0 +1,11 @@
+﻿添加使用说明
+新增BaserTexture.png，并将其作为UIBaser的贴图
+新增ButtonUI
+新增CustomizeLabelUI
+
+部分文件改动
+部分Functionser的属性移动到UILoader
+修改了部分UI判定
+
+UIBaser添加FocusUpdate及NonFocusUpdate，修改了部分注释
+UIGetter添加NewCustomizeLabelUI及NewButtonUI

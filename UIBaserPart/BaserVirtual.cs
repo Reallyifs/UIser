@@ -12,7 +12,7 @@ namespace UIser
         /// <summary>
         /// 别问，问就是懒
         /// </summary>
-        public virtual Texture2D Texture => ModContent.GetTexture("Images/BaserTexture");
+        public virtual Texture2D Texture => UIser.Instance.GetTexture("Files/Images/BaserTexture");
 
         /// <summary>
         /// 激活此UI时，在这里初始化你需要用到的变量，如果没有初始化，则会先调用 <see cref="Initialize"/>
@@ -42,11 +42,7 @@ namespace UIser
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this);
-            if (Rectangle.Contains(Functionser.MousePoint) && !string.IsNullOrEmpty(Description))
-            {
-                Vector2 position = new Vector2(Main.mouseX + 15, Main.mouseY + 15);
-                spriteBatch.DrawFiveString(Main.fontMouseText, Description, position, Color.White, Color.Black, Vector2.Zero);
-            }
+            DrawDescription(spriteBatch);
         }
 
         /// <summary>
@@ -54,6 +50,22 @@ namespace UIser
         /// </summary>
         /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
+        {
+        }
+
+        /// <summary>
+        /// 在UI已 <see cref="Activate"/> 且窗口有焦点的前提下才会调用此方法，在此之前会调用 <see cref="Update(GameTime)"/>
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public virtual void FocusUpdate(GameTime gameTime)
+        {
+        }
+
+        /// <summary>
+        /// 在UI已 <see cref="Activate"/> 且窗口没有焦点的前提下才会调用此方法，在此之前会调用 <see cref="Update(GameTime)"/>
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public virtual void NonFocusUpdate(GameTime gameTime)
         {
         }
 
@@ -75,15 +87,15 @@ namespace UIser
         /// <summary>
         /// 鼠标单击
         /// </summary>
-        /// <param name="MouseLeft">True：鼠标左键 | False：鼠标右键 | null：鼠标中键</param>
+        /// <param name="MouseLeft">True：鼠标左键 | Null：鼠标中键 | False：鼠标右键</param>
         public virtual void MouseClick(bool? MouseLeft)
         {
         }
 
         /// <summary>
-        /// 鼠标双击，会先触发单击事件
+        /// 鼠标双击，会先触发 <see cref="MouseClick(bool?)"/>
         /// </summary>
-        /// <param name="MouseLeft">True：鼠标左键 | False：鼠标右键 | null：鼠标中键</param>
+        /// <param name="MouseLeft">True：鼠标左键 | Null：鼠标中键 | False：鼠标右键</param>
         public virtual void MouseDoubleClick(bool? MouseLeft)
         {
         }

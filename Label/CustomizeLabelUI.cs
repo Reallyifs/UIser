@@ -2,54 +2,48 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
+using UIser.Customize;
 
 namespace UIser.Label
 {
-    /// <summary>
-    /// 可以显示文字的UI
-    /// </summary>
-    public class LabelUI : UIBaser
+    public class CustomizeLabelUI : CustomizeUIBaser
     {
-        public int TextPositionX = 0;
-        public int TextPositionY = 0;
-
         public string Text
         {
             get;
-            protected set;
+            set;
         } = string.Empty;
 
         public Vector2 TextPosition
         {
-            get => new Vector2(TextPositionX, TextPositionY);
-            set
-            {
-                TextPositionX = (int)value.X;
-                TextPositionY = (int)value.Y;
-            }
+            get;
+            set;
         }
 
         public DynamicSpriteFont Font
         {
             get;
-            protected set;
+            set;
         } = Main.fontMouseText;
 
-        public LabelUI() : base()
+        public CustomizeLabelUI() : base()
         {
         }
 
-        public LabelUI(DynamicSpriteFont font) : base()
+        public CustomizeLabelUI(DynamicSpriteFont font) : base()
         {
             Font = font ?? Main.fontMouseText;
         }
 
         public virtual bool CanChangeText(string text) => !string.IsNullOrEmpty(text);
 
+        /// <summary>
+        /// 不再调用 <see cref="CanChangeText(string)"/>，如需要请自行重写
+        /// </summary>
+        /// <param name="text"></param>
         public virtual void ChangeText(string text)
         {
-            if (CanChangeText(text))
-                Text = text;
+            Text = text;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

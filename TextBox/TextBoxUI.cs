@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
-using Terraria.GameInput;
 using UIser.Label;
 
 namespace UIser.TextBox
@@ -34,7 +33,7 @@ namespace UIser.TextBox
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this);
+            base.Draw(spriteBatch);
             string DrawText = Text;
             if (InWrite)
             {
@@ -45,7 +44,7 @@ namespace UIser.TextBox
             }
             if (!string.IsNullOrEmpty(DrawText))
             {
-                Vector2 DrawPosition = Position + TextPosition - Main.screenPosition;
+                Vector2 DrawPosition = ScreenPosition + TextPosition;
                 spriteBatch.DrawFiveString(Font, DrawText, DrawPosition, Color.White, Color.Black, Vector2.Zero);
             }
         }
@@ -60,11 +59,9 @@ namespace UIser.TextBox
         {
             if (InWrite && Main.hasFocus)
             {
-                Text += PlayerInput.BlockedKey;
-                PlayerInput.BlockedKey = null;
                 if (Main.LocalPlayer.position != PlayerPosition)
                     Main.LocalPlayer.position = PlayerPosition;
-                if (!MouseEntered && Main.mouseLeft && Main.mouseLeftRelease)
+                if (!MouseEntered && UILoader.Mouse.Left.Click)
                 {
                     InWrite = false;
                     PlayerPosition = new Vector2();

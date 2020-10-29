@@ -3,7 +3,7 @@
 namespace UIser.Customize
 {
     /// <summary>
-    /// 在此类UI中，所有变量都可以被定义，如Size不再调用Wight和Height<para></para>
+    /// 在此类UI中，所有变量都可以被定义，如 Size 不再调用 Wight 和 Height<para></para>
     /// 这样可以做一个判定面积位置与视角位置不一样的UI<para></para>
     /// 不建议使用（
     /// </summary>
