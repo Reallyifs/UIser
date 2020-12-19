@@ -17,10 +17,35 @@ namespace UIser.TextBox
         internal bool InWrite;
         internal Vector2 PlayerPosition;
 
+        /// <summary>
+        /// 获取一个 <see cref="TextBoxUI"/>
+        /// </summary>
         public TextBoxUI() : base()
         {
         }
+
+        /// <summary>
+        /// 获取一个 <see cref="TextBoxUI"/>，使用指定的字体
+        /// </summary>
+        /// <param name="font">字体</param>
         public TextBoxUI(DynamicSpriteFont font) : base(font)
+        {
+        }
+
+        /// <summary>
+        /// 获取一个 <see cref="TextBoxUI"/>，使用指定的文字
+        /// </summary>
+        /// <param name="text">文字</param>
+        public TextBoxUI(string text) : base(text)
+        {
+        }
+
+        /// <summary>
+        /// 获取一个 <see cref="TextBoxUI"/>，使用指定的文字和字体
+        /// </summary>
+        /// <param name="text">文字</param>
+        /// <param name="font">字体</param>
+        public TextBoxUI(string text, DynamicSpriteFont font) : base(text, font)
         {
         }
 

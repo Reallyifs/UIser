@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace UIser
 {
@@ -15,14 +13,14 @@ namespace UIser
         public virtual Texture2D Texture => UIser.Instance.GetTexture("Files/Images/BaserTexture");
 
         /// <summary>
-        /// 激活此UI时，在这里初始化你需要用到的变量，如果没有初始化，则会先调用 <see cref="Initialize"/>
+        /// 激活此UI，在这里初始化你需要用到的变量，如果没有初始化，则会先调用 <see cref="Initialize"/>
         /// </summary>
         protected virtual void Activate()
         {
         }
 
         /// <summary>
-        /// 注销此UI时，在这里还原你用到的所有变量
+        /// 注销此UI，在这里还原你用到的所有变量
         /// </summary>
         protected virtual void Deactivate()
         {

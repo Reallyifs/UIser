@@ -1,6 +1,6 @@
 ﻿添加使用说明
 新增BaserTexture.png，并将其作为UIBaser的贴图
-新增ButtonUI
+新增ButtonUI，ImageUI
 新增CustomizeLabelUI
 
 部分文件改动
@@ -9,3 +9,4 @@
 
 UIBaser添加FocusUpdate及NonFocusUpdate，修改了部分注释
 UIGetter添加NewCustomizeLabelUI及NewButtonUI
+LabelUI添加CanChangeFont，ChangeFont，TextColor，TextBorderColor和TextScale及其注释，并添加了多个构造方法

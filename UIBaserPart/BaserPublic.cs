@@ -114,7 +114,7 @@ namespace UIser
         }
 
         /// <summary>
-        /// 此UI Draw时的Effects
+        /// 此UI Draw时的Effect
         /// </summary>
         public SpriteEffects SpriteEffect
         {
